@@ -1,6 +1,8 @@
-| API 명   |   구분   | 설명 |
-|:--------|:------:|:--|
-| 일정 생성   |  POST  |    |
-| 일정 조회   |  GET   |    |
-| 일정 업데이트 |  PUT   |    |
-| 일정 삭제   | DELETE |    |
+|   기능    | Method |            URL            | request | response |  상태코드  |
+|:-------:|:------:|:-------------------------:|:------:|:--------:|:------:|
+|  일정 생성  |  POST  |       api/calendar        |        |          | 200:정상 |
+|  일정 조회  |  GET   | api/calendar/{calendarid} |        |          | 200:정상 |
+| 일정 업데이트 |  PUT   |       api/calendar        |        |          | 200:정상 |
+|  일정 삭제  | DELETE | api/calendar/{calendarid} |        |          | 200:정상 |
+
+![](https://velog.velcdn.com/images/deabaind/post/77f0d22b-ce79-46c5-998d-16cdbc4c5288/image.png)
