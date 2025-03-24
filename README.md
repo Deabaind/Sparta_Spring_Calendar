@@ -6,3 +6,4 @@
 |  일정 삭제  | DELETE | /schedules/{scheduleID} | 요청 param                                                                                                                                                                                    | -                                                                                                                                  | 200:정상 |
 
 ![](https://velog.velcdn.com/images/deabaind/post/71d8eaa4-47dd-40ad-8ef7-9890caf6db8c/image.png)
+
