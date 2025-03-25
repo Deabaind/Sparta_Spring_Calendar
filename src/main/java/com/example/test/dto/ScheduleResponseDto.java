@@ -2,15 +2,14 @@ package com.example.test.dto;
 
 import com.example.test.entity.Schedule;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Setter
+
 @Getter
 public class ScheduleResponseDto {
 
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -21,5 +20,13 @@ public class ScheduleResponseDto {
     private LocalDate lastDate;
     private LocalDate updateDate;
 
-    public ScheduleResponseDto() {}
+    public ScheduleResponseDto(Schedule schedule) {
+        this.id = schedule.getId();
+        this.name = schedule.getName();
+        this.title = schedule.getTitle();
+        this.contents = schedule.getContents();
+        this.startDate = schedule.getStartDate();
+        this.lastDate = schedule.getLastDate();
+        this.updateDate = schedule.getUpdateDate();
+    }
 }
