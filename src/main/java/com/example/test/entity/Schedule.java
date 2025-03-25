@@ -2,11 +2,13 @@ package com.example.test.entity;
 
 
 import com.example.test.dto.ScheduleRequestDto;
-import com.example.test.dto.ScheduleResponseDto;
+import com.example.test.dto.UpdateScheduleRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @AllArgsConstructor
@@ -23,16 +25,16 @@ public class Schedule {
     private String title;
     private String contents;
 
-    // 일정 시작일, 종료일, 수정일
+    // 일정 시작일, 종료일, 작성일, 수정 날짜 및 시간
     private LocalDate startDate;
     private LocalDate lastDate;
-    private LocalDate updateDate = LocalDate.now();
+    private LocalDateTime createDateTime;
+    private LocalDateTime updateDateTime = LocalDateTime.now();
 
-    public void update(ScheduleResponseDto dto) {
+    public void update(UpdateScheduleRequestDto dto) {
         this.name = dto.getName();
-        this.title = dto.getTitle();
-        this.contents = dto.getTitle();
-        this.startDate = dto.getStartDate();
-        this.lastDate = dto.getLastDate();
+        this.password = dto.getPassword();
+        this.contents = dto.getContents();
+        this.updateDateTime = LocalDateTime.now();
     }
 }

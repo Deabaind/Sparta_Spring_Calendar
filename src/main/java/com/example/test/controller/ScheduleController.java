@@ -1,18 +1,12 @@
 package com.example.test.controller;
 
-import com.example.test.dto.ScheduleRequestDto;
-import com.example.test.dto.ScheduleResponseDto;
+import com.example.test.dto.*;
 import com.example.test.entity.Schedule;
-import com.example.test.service.ScheduleService;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @RestController
 @RequestMapping("/schedules")
@@ -21,52 +15,87 @@ public class ScheduleController {
 
     private final Map<Long, Schedule> scheduleList = new HashMap<>();
 
+    // 생성
     @PostMapping
-    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto dto) {
+    public CreateScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto dto) {
         // 식별자가 1씩 증가 하도록 만듦
         Long id = scheduleList.isEmpty() ? 1 : Collections.max(scheduleList.keySet()) + 1;
 
-        // 오늘 날짜
-        LocalDate updateDate = LocalDate.now();
-
-        // 임시 비밀번호
-        String password = "왜 안나옴";
+        LocalDateTime createDatetime = LocalDateTime.now();
+        LocalDateTime updateDateTime = LocalDateTime.now();
 
         // 요청받은 데이터로 Schedule 객체 생성
         Schedule schedule = new Schedule(
                 id,
                 dto.getName(),
-                password,
+                dto.getPassword(),
                 dto.getTitle(),
                 dto.getContents(),
                 dto.getStartDate(),
                 dto.getLastDate(),
-                updateDate
+                createDatetime,
+                updateDateTime
         );
 
-        // Inmemory DB에 Memo 저장
         scheduleList.put(id, schedule);
 
-        return new ScheduleResponseDto(schedule);
+        return new CreateScheduleResponseDto(schedule);
     }
 
+    // 목록 조회
+    @GetMapping
+    public List<MultiScheduleResponseDto> findAllSchedule() {
+        List<MultiScheduleResponseDto> multiResponseList = new ArrayList<>();
+
+        for (Schedule schedule : scheduleList.values()) {
+            MultiScheduleResponseDto multiScheduleResponseDto = new MultiScheduleResponseDto(schedule);
+            multiResponseList.add(multiScheduleResponseDto);
+        }
+        // updateDate를 기준으로 내림차순
+        multiResponseList.sort(Comparator.comparing(MultiScheduleResponseDto::getUpdateDate));
+        return multiResponseList;
+    }
+
+    // 단건 조회
     @GetMapping("/{id}")
-    public ScheduleResponseDto findScheduleId(@PathVariable Long id) {
+    public OneScheduleResponseDto findScheduleId(@PathVariable Long id) {
         Schedule schedule = scheduleList.get(id);
 
-        return new ScheduleResponseDto(schedule);
+        return new OneScheduleResponseDto(schedule);
     }
 
-    @GetMapping("/{id}")
-    public ScheduleResponseDto updateScheduleById(
+    // 단건 수정
+    @PutMapping("/{id}")
+    public OneScheduleResponseDto updateScheduleById(
             @PathVariable Long id,
-            @RequestBody ScheduleRequestDto dto
+            @RequestBody UpdateScheduleRequestDto dto
     ) {
         Schedule schedule = scheduleList.get(id);
 
-        schedule.update(dto);
+        if (schedule.getPassword().equals(dto.getPassword())) {
+            schedule.update(dto);
+        }
+        // 비밀번호가 틀릴 경우 예외처리
+//        else {
+//
+//        }
 
+        return new OneScheduleResponseDto(schedule);
     }
+
+    // 단건 삭제
+    @DeleteMapping("/{id}")
+    public void deleteSchedule(
+            @PathVariable Long id,
+            @RequestBody DeleteScheduleRequestDto dto
+    ) {
+        Schedule schedule = scheduleList.get(id);
+
+        if (schedule.getPassword().equals(dto.getPassword())) {
+            scheduleList.remove(id);
+        }
+    }
+
 
 //    private final ScheduleResponseDto scheduleService
 
@@ -82,7 +111,7 @@ public class ScheduleController {
 //        if (result > 0) {
 //            return "등록 성공";
 //        } else {
-//            return "등록 완료";
+//            return "등록 실패";
 //        }
 //    }
 //
