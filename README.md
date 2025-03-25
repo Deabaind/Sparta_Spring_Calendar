@@ -6,5 +6,5 @@
 | 일정 업데이트  |  PUT   | /schedules/{id} | 요청 body<br>{<br>"password":"비밀번호",<br>"title":"일정명",<br>"contents":"일정 내용",<br>"startDate":"일정 시작일",<br>"lastDate":"일정 종료일"<br>} | 수정 정보<br>{<br>"title":"일정명",<br>"contents":"일정 내용",<br>"startDate":"일정 시작일",<br>"lastDate":"일정 종료일"<br>}   | 200:정상 수정 |
 |  일정 삭제   | DELETE | /schedules/{id} | 요청 param                                                                                                                         | -                                                                                                          | 200:정상 삭제 |
 
-![](https://velog.velcdn.com/images/deabaind/post/fa15bce6-be8b-4ebd-9bd5-8ef093e1fbc8/image.png)
+![](https://velog.velcdn.com/images/deabaind/post/0839601b-c59c-43d6-92a3-4cec9f7797ed/image.png)
 
