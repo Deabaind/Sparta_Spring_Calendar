@@ -1,10 +1,1 @@
-|    기능    | Method | URL             | request                                                                                                                          | response                                                                                                   |   상태코드    |
-|:--------:|:------:|:----------------|:---------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------|:---------:|
-|  일정 생성   |  POST  | /schedules      | 요청 body<br>{<br>"title":"일정명",<br>"contents":"일정 내용",<br>"startDate":"일정 시작일",<br>"lastDate":"일정 종료일"<br>}                       | 등록 정보 <br>{<br>"id":"일정 번호"<br>}                                                                           | 200:정상 등록 |
-| 일정 목록 조회 |  GET   | /schedules      | 요청 param                                                                                                                         | 다건 응답 정보                                                                                                   | 200:정상 조회 |
-|  일정 조회   |  GET   | /schedules/{id} | 요청 param                                                                                                                         | 단건 응답 정보<br>{<br>"title":"일정명",<br>"contents":"일정 내용"<br>"startDate":"일정 시작일",<br>"lastDate":"일정 종료일"<br>} | 200:정상 조회 |
-| 일정 업데이트  |  PUT   | /schedules/{id} | 요청 body<br>{<br>"password":"비밀번호",<br>"title":"일정명",<br>"contents":"일정 내용",<br>"startDate":"일정 시작일",<br>"lastDate":"일정 종료일"<br>} | 수정 정보<br>{<br>"title":"일정명",<br>"contents":"일정 내용",<br>"startDate":"일정 시작일",<br>"lastDate":"일정 종료일"<br>}   | 200:정상 수정 |
-|  일정 삭제   | DELETE | /schedules/{id} | 요청 param                                                                                                                         | -                                                                                                          | 200:정상 삭제 |
-
-![](https://velog.velcdn.com/images/deabaind/post/0839601b-c59c-43d6-92a3-4cec9f7797ed/image.png)
-
+[API 명세서 노션](https://www.notion.so/Calendar-API-ERD-1c0f7369191680129ec6e609669300b4)
