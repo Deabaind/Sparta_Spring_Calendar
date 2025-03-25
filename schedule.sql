@@ -11,3 +11,4 @@ create table calendar.schedule
     name varchar(50),
     password varchar(50)
 );
+
