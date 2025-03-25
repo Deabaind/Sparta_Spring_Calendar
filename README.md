@@ -1,1 +1,1 @@
-[API 명세서 노션](https://www.notion.so/Calendar-API-ERD-1c0f7369191680129ec6e609669300b4)
+[API 명세서 노션](https://colorful-pyjama-65b.notion.site/Calendar-API-ERD-1c0f7369191680129ec6e609669300b4?pvs=4)
