@@ -1,7 +1,5 @@
 package com.example.test.entity;
 
-
-import com.example.test.dto.UpdateScheduleRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -28,12 +26,5 @@ public class Schedule {
     private LocalDate startDate;
     private LocalDate lastDate;
     private LocalDateTime createDateTime;
-    private LocalDateTime updateDateTime = LocalDateTime.now();
-
-    public void update(UpdateScheduleRequestDto dto) {
-        this.name = dto.getName();
-        this.password = dto.getPassword();
-        this.contents = dto.getContents();
-        this.updateDateTime = LocalDateTime.now();
-    }
+    private LocalDateTime updateDateTime;
 }
