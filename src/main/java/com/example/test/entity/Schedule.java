@@ -1,20 +1,19 @@
 package com.example.test.entity;
 
 
-import com.example.test.dto.ScheduleRequestDto;
 import com.example.test.dto.UpdateScheduleRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Getter
 @AllArgsConstructor
 public class Schedule {
 
     // 일정 id
+
     private Long id;
 
     // 작성자, 비밀번호

@@ -3,9 +3,11 @@ package com.example.test.controller;
 import com.example.test.dto.*;
 import com.example.test.entity.Schedule;
 
+import com.example.test.service.ScheduleService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -13,34 +15,46 @@ import java.util.*;
 //@RequiredArgsConstructor
 public class ScheduleController {
 
+    private final ScheduleService scheduleService;
+
+    public ScheduleController(ScheduleService scheduleService) {
+        this.scheduleService = scheduleService;
+    }
+
     private final Map<Long, Schedule> scheduleList = new HashMap<>();
 
-    // 생성
     @PostMapping
-    public CreateScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto dto) {
-        // 식별자가 1씩 증가 하도록 만듦
-        Long id = scheduleList.isEmpty() ? 1 : Collections.max(scheduleList.keySet()) + 1;
-
-        LocalDateTime createDatetime = LocalDateTime.now();
-        LocalDateTime updateDateTime = LocalDateTime.now();
-
-        // 요청받은 데이터로 Schedule 객체 생성
-        Schedule schedule = new Schedule(
-                id,
-                dto.getName(),
-                dto.getPassword(),
-                dto.getTitle(),
-                dto.getContents(),
-                dto.getStartDate(),
-                dto.getLastDate(),
-                createDatetime,
-                updateDateTime
-        );
-
-        scheduleList.put(id, schedule);
-
-        return new CreateScheduleResponseDto(schedule);
+    public ResponseEntity<CreateScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto dto) {
+        CreateScheduleResponseDto CreateScheduleResponseDto = scheduleService.create(dto);
+        return new ResponseEntity<>(CreateScheduleResponseDto, HttpStatus.OK);
     }
+
+    // 생성
+//    @PostMapping
+//    public CreateScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto dto) {
+//        // 식별자가 1씩 증가 하도록 만듦
+//        Long id = scheduleList.isEmpty() ? 1 : Collections.max(scheduleList.keySet()) + 1;
+//
+//        LocalDateTime createDatetime = LocalDateTime.now();
+//        LocalDateTime updateDateTime = LocalDateTime.now();
+//
+//        // 요청받은 데이터로 Schedule 객체 생성
+//        Schedule schedule = new Schedule(
+//                id,
+//                dto.getName(),
+//                dto.getPassword(),
+//                dto.getTitle(),
+//                dto.getContents(),
+//                dto.getStartDate(),
+//                dto.getLastDate(),
+//                createDatetime,
+//                updateDateTime
+//        );
+//
+//        scheduleList.put(id, schedule);
+//
+//        return new CreateScheduleResponseDto(schedule);
+//    }
 
     // 목록 조회
     @GetMapping
@@ -97,23 +111,9 @@ public class ScheduleController {
     }
 
 
-//    private final ScheduleResponseDto scheduleService
 
-//    public ScheduleController(ScheduleService scheduleService) {
-//        this.scheduleService = scheduleService;
-//    }
 
-//    // 일정 생성
-//    @PostMapping("/schedules")
-//    public String createSchedule(@RequestBody ScheduleRequestDto requestDto) {
-//        int result = scheduleService.create(requestDto);
-//
-//        if (result > 0) {
-//            return "등록 성공";
-//        } else {
-//            return "등록 실패";
-//        }
-//    }
+
 //
 //    // 일정 목록 조회
 //    @GetMapping("/schedules")
