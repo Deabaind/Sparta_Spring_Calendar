@@ -12,7 +12,7 @@ IDE: IntelliJ
 Framework: Spring
 
 - - -
-## :large_blue_diamond: API 명세서 & ERD 작성
+### :large_blue_diamond: API 명세서 & ERD 작성
 #### [:memo: API 명세서 & ERD 노션 링크](https://colorful-pyjama-65b.notion.site/Calendar-API-ERD-1c0f7369191680129ec6e609669300b4?pvs=4)
 
 - - -
