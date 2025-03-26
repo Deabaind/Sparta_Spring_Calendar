@@ -63,7 +63,6 @@ public class ScheduleController {
 
         scheduleService.updateSchedule(id, dto.getName(), dto.getContents(), dto.getPassword());
 
-
         return new ResponseEntity<>(updateResponseDto, HttpStatus.OK);
     }
 

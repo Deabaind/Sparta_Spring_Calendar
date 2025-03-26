@@ -29,15 +29,9 @@ public class ScheduleService {
         // 수정일.시간
         LocalDateTime updateDateTime = LocalDateTime.now();
 
-        // 빈 값으로 생성되지 않아 임의 값을 주입
-        Long a = 0L;
-
-        // a는 사용하지 않음
-        // 강의에서는 auto increment 이기에 빈 값으로 입력했으나 코드를 수정하고 적용하니 실행되지 않음
-        Schedule schedule = new Schedule(a, dto.getName(), dto.getPassword(), dto.getTitle(), dto.getContents(), dto.getStartDate(), dto.getLastDate(), createDateTime, updateDateTime);
+        Schedule schedule = new Schedule(dto.getName(), dto.getPassword(), dto.getTitle(), dto.getContents(), dto.getStartDate(), dto.getLastDate(), createDateTime, updateDateTime);
 
         return scheduleRepository.create(schedule);
-
     }
 
     // 목록 조회

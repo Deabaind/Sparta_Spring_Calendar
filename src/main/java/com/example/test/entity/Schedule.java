@@ -27,4 +27,15 @@ public class Schedule {
     private LocalDate lastDate;
     private LocalDateTime createDateTime;
     private LocalDateTime updateDateTime;
+
+    public Schedule(String name, String password, String title, String contents, LocalDate startDate, LocalDate lastDate, LocalDateTime createDateTime, LocalDateTime updateDateTime) {
+        this.name = name;
+        this.password = password;
+        this.title = title;
+        this.contents = contents;
+        this.startDate = startDate;
+        this.lastDate = lastDate;
+        this.createDateTime = createDateTime;
+        this.updateDateTime = updateDateTime;
+    }
 }
