@@ -1,12 +1,18 @@
 package com.example.test.service;
 
 import com.example.test.dto.CreateScheduleResponseDto;
+import com.example.test.dto.MultiScheduleResponseDto;
+import com.example.test.dto.OneScheduleResponseDto;
 import com.example.test.dto.ScheduleRequestDto;
 import com.example.test.entity.Schedule;
 import com.example.test.repository.ScheduleRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -35,12 +41,22 @@ public class ScheduleService {
 
     }
 
+    // 목록 조회
+    public List<Schedule> findAll() {
+        return scheduleRepository.findAllSchedule();
+    }
 
+    // 단건 조회
+    public OneScheduleResponseDto findScheduleById(Long id){
+        Optional<Schedule> optionalSchedule = scheduleRepository.findScheduleById(id);
+
+        if (optionalSchedule.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return new OneScheduleResponseDto(optionalSchedule.get());
+    }
 }
-//
-//    public List<ScheduleResponseDto> findAll() {
-//        return scheduleRepository.findAllSchedule();
-//    }
+
 
 //    // 일정 생성
 //    @PostMapping("/schedules")

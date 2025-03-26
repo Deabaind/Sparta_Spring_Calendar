@@ -1,21 +1,25 @@
 package com.example.test.repository;
 
 
-
 //import com.example.test.dto.ScheduleResponseDto;
 //import com.example.test.entity.Schedule;
+
 import com.example.test.dto.CreateScheduleResponseDto;
-import com.example.test.dto.ScheduleRequestDto;
+import com.example.test.dto.MultiScheduleResponseDto;
 import com.example.test.entity.Schedule;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.time.LocalDateTime;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class ScheduleRepository {
@@ -26,6 +30,7 @@ public class ScheduleRepository {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // 일정 등록
     public CreateScheduleResponseDto create(Schedule schedule) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
 
@@ -39,18 +44,64 @@ public class ScheduleRepository {
         parameters.put("contents", schedule.getContents());
         parameters.put("startDate", schedule.getStartDate());
         parameters.put("lastDate", schedule.getLastDate());
-        parameters.put("createDate", schedule.getCreateDateTime());
-        parameters.put("updateDate", schedule.getUpdateDateTime());
+        parameters.put("createDateTime", schedule.getCreateDateTime());
+        parameters.put("updateDateTime", schedule.getUpdateDateTime());
 
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
         return new CreateScheduleResponseDto(key.longValue());
+    }
 
-        }
+    // 일정 목록 조회
+    public List<Schedule> findAllSchedule() {
+        return jdbcTemplate.query("select * from calendar.schedule", scheduleRowMapper());
+    }
 
-//    public List<ScheduleResponseDto> findAllSchedule() {
-//        String sql = "select name, title, startDate, lastDate, updateDate from calendar.schedule";
-//        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ScheduleResponseDto.class));
-//    }
+    // 일정 단건 조회
+    public Optional<Schedule> findScheduleById(Long id) {
+        List<Schedule> result = jdbcTemplate.query("select * from calendar.schedule where id = ?", scheduleRowMapperV2(), id);
+        return result.stream().findAny();
+    }
 
+    // 목록 조회용
+    private RowMapper<Schedule> scheduleRowMapper() {
+        return new RowMapper<Schedule>() {
+            @Override
+            public Schedule mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Schedule(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("password"),
+                        rs.getString("title"),
+                        rs.getString("contents"),
+                        rs.getDate("startDate").toLocalDate(),
+                        rs.getDate("lastDate").toLocalDate(),
+                        rs.getTimestamp("createDateTime").toLocalDateTime(),
+                        rs.getTimestamp("updateDateTime").toLocalDateTime()
+                );
+            }
+        };
+    }
+
+    // 단건 조회용
+    private RowMapper<Schedule> scheduleRowMapperV2() {
+        return new RowMapper<Schedule>() {
+            @Override
+            public Schedule mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Schedule(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("password"),
+                        rs.getString("title"),
+                        rs.getString("contents"),
+                        rs.getDate("startDate").toLocalDate(),
+                        rs.getDate("lastDate").toLocalDate(),
+                        rs.getTimestamp("createDateTime").toLocalDateTime(),
+                        rs.getTimestamp("updateDateTime").toLocalDateTime()
+                );
+            }
+
+        };
+    }
 }
+
 
