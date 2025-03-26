@@ -12,11 +12,11 @@ IDE: IntelliJ
 Framework: Spring
 
 - - -
-##:large_blue_diamond: API 명세서 & ERD 작성
-#[:memo: API 명세서 & ERD 노션 링크](https://colorful-pyjama-65b.notion.site/Calendar-API-ERD-1c0f7369191680129ec6e609669300b4?pvs=4)
+## :large_blue_diamond: API 명세서 & ERD 작성
+# [:memo: API 명세서 & ERD 노션 링크](https://colorful-pyjama-65b.notion.site/Calendar-API-ERD-1c0f7369191680129ec6e609669300b4?pvs=4)
 
 - - -
-##:large_blue_diamond: 구현된 기능
+## :large_blue_diamond: 구현된 기능
 
 일정 생성
 일정 목록 조회
@@ -24,7 +24,7 @@ Framework: Spring
 선택 일정 수정
 
 - - -
-##:large_blue_diamond: 미구현 기능
+## :large_blue_diamond: 미구현 기능
 
 일정 생성
 일정 목록 조회
@@ -36,9 +36,9 @@ Framework: Spring
 
 
 - - -
-##:large_blue_diamond: 구현 예시
+## :large_blue_diamond: 구현 예시
 
 
 - - -
-##:large_blue_diamond: TroubleShouting
+## :large_blue_diamond: TroubleShouting
 
