@@ -33,6 +33,7 @@ public class ScheduleService {
         Long a = 0L;
 
         // a는 사용하지 않음
+        // 강의에서는 auto increment 이기에 빈 값으로 입력했으나 코드를 수정하고 적용하니 실행되지 않음
         Schedule schedule = new Schedule(a, dto.getName(), dto.getPassword(), dto.getTitle(), dto.getContents(), dto.getStartDate(), dto.getLastDate(), createDateTime, updateDateTime);
 
         return scheduleRepository.create(schedule);
@@ -56,7 +57,7 @@ public class ScheduleService {
 
     @Transactional
     // 일정 단건 수정
-    public UpdateScheduleResponseDto updateSchedule(Long id, String name, String contents) {
+    public UpdateScheduleResponseDto updateSchedule(Long id, String name, String contents, String password) {
         if (name == null || contents == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the");
         }
@@ -72,16 +73,3 @@ public class ScheduleService {
         return new UpdateScheduleResponseDto(optionalSchedule.get());
     }
 }
-
-
-//    // 일정 생성
-//    @PostMapping("/schedules")
-//    public String createSchedule(@RequestBody ScheduleRequestDto requestDto) {
-//        int result = scheduleService.create(requestDto);
-//
-//        if (result > 0) {
-//            return "등록 성공";
-//        } else {
-//            return "등록 실패";
-//        }
-//    }

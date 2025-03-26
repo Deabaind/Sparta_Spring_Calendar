@@ -3,18 +3,15 @@ package com.example.test.controller;
 import com.example.test.dto.*;
 import com.example.test.entity.Schedule;
 
-import com.example.test.repository.ScheduleRepository;
 import com.example.test.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jmx.export.notification.UnableToSendNotificationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
 @RequestMapping("/schedules")
-//@RequiredArgsConstructor
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
@@ -63,7 +60,9 @@ public class ScheduleController {
             @RequestBody UpdateScheduleRequestDto dto
     ) {
         OneScheduleResponseDto updateResponseDto = scheduleService.findScheduleById(id);
-            scheduleService.updateSchedule(id, dto.getName(), dto.getContents());
+
+        scheduleService.updateSchedule(id, dto.getName(), dto.getContents(), dto.getPassword());
+
 
         return new ResponseEntity<>(updateResponseDto, HttpStatus.OK);
     }
@@ -80,29 +79,4 @@ public class ScheduleController {
             scheduleList.remove(id);
         }
     }
-
-
-
-
-
-//
-//    // 일정 목록 조회
-//    @GetMapping("/schedules")
-//    public ResponseEntity<ScheduleResponseDto> findAllSchedule(){
-//        Schedule schedule = scheduleService.findAll();
-//        return
-//    }
-//
-//    // 일정 단일 조회
-//    @GetMapping("/schedules/{id}")
-//    public ResponseEntity<Schedule> findschedule(@PathVariable int id){
-//        Schedule schedule = scheduleService.findById(id);
-//        return new ResponseEntity<>(schedule, HttpStatus.OK);
-//    }
-
-    // 일정 업데이트
-
-    // 일정 삭제
-
-
 }

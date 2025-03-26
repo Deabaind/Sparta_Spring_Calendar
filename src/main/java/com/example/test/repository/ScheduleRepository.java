@@ -1,11 +1,6 @@
 package com.example.test.repository;
 
-
-//import com.example.test.dto.ScheduleResponseDto;
-//import com.example.test.entity.Schedule;
-
 import com.example.test.dto.CreateScheduleResponseDto;
-import com.example.test.dto.MultiScheduleResponseDto;
 import com.example.test.entity.Schedule;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

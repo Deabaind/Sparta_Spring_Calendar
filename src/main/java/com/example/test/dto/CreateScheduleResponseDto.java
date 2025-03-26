@@ -9,7 +9,4 @@ import lombok.Getter;
 public class CreateScheduleResponseDto {
     private Long id;
 
-    public CreateScheduleResponseDto(Schedule schedule) {
-        this.id = schedule.getId();
-    }
 }

@@ -6,7 +6,6 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 // 단건 응답 정보
 @Getter
@@ -22,14 +21,6 @@ public class OneScheduleResponseDto {
     private LocalDate lastDate;
     private LocalDateTime createDateTime;
     private LocalDateTime updateDateTime;
-
-    // 시간 출력 수정
-    public String formatter(LocalDateTime updateDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm : ss");
-        String updateTime = updateDateTime.format(formatter);
-        return updateTime;
-    }
-//    this.updateDateTime = formatter(schedule.getUpdateDateTime());
 
     public OneScheduleResponseDto(Schedule schedule) {
         this.name = schedule.getName();
