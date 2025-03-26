@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,14 @@ public class ScheduleRepository {
         List<Schedule> result = jdbcTemplate.query("select * from calendar.schedule where id = ?", scheduleRowMapperV2(), id);
         return result.stream().findAny();
     }
+
+    // 일정 단건 수정
+    public int updateSchedule(Long id, String name, String contents) {
+        // 수정일.시간
+        LocalDateTime updateDateTime = LocalDateTime.now();
+        return jdbcTemplate.update("update schedule set name = ?, contents = ?, updateDateTime = ? where id = ?", name, contents, updateDateTime, id);
+    }
+
 
     // 목록 조회용
     private RowMapper<Schedule> scheduleRowMapper() {

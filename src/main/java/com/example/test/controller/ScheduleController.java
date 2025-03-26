@@ -7,6 +7,7 @@ import com.example.test.repository.ScheduleRepository;
 import com.example.test.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jmx.export.notification.UnableToSendNotificationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -37,12 +38,10 @@ public class ScheduleController {
 
         List<MultiScheduleResponseDto> multiResponseList = new ArrayList<>();
 
-//        multiResponseList = scheduleService.findAll().stream().map(MultiScheduleResponseDto::new).toList();
         for (Schedule schedule : scheduleService.findAll()) {
             MultiScheduleResponseDto responseDto = new MultiScheduleResponseDto(schedule);
             multiResponseList.add(responseDto);
         }
-
         // updateDateTime을 기준으로 내림차순
         multiResponseList.sort(Comparator.comparing(MultiScheduleResponseDto::getUpdateDateTime));
 
@@ -57,28 +56,16 @@ public class ScheduleController {
         return new ResponseEntity<>(oneResponseDto, HttpStatus.OK);
     }
 
-
-
-
-
-
     // 단건 수정
     @PutMapping("/{id}")
-    public OneScheduleResponseDto updateScheduleById(
+    public ResponseEntity<OneScheduleResponseDto> updateScheduleById(
             @PathVariable Long id,
             @RequestBody UpdateScheduleRequestDto dto
     ) {
-        Schedule schedule = scheduleList.get(id);
+        OneScheduleResponseDto updateResponseDto = scheduleService.findScheduleById(id);
+            scheduleService.updateSchedule(id, dto.getName(), dto.getContents());
 
-        if (schedule.getPassword().equals(dto.getPassword())) {
-            schedule.update(dto);
-        }
-        // 비밀번호가 틀릴 경우 예외처리
-//        else {
-//
-//        }
-
-        return new OneScheduleResponseDto(schedule);
+        return new ResponseEntity<>(updateResponseDto, HttpStatus.OK);
     }
 
     // 단건 삭제

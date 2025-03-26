@@ -1,13 +1,11 @@
 package com.example.test.service;
 
-import com.example.test.dto.CreateScheduleResponseDto;
-import com.example.test.dto.MultiScheduleResponseDto;
-import com.example.test.dto.OneScheduleResponseDto;
-import com.example.test.dto.ScheduleRequestDto;
+import com.example.test.dto.*;
 import com.example.test.entity.Schedule;
 import com.example.test.repository.ScheduleRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
@@ -54,6 +52,24 @@ public class ScheduleService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return new OneScheduleResponseDto(optionalSchedule.get());
+    }
+
+    @Transactional
+    // 일정 단건 수정
+    public UpdateScheduleResponseDto updateSchedule(Long id, String name, String contents) {
+        if (name == null || contents == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the");
+        }
+
+        int updateRow = scheduleRepository.updateSchedule(id, name, contents);
+
+        if (updateRow == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does");
+        }
+
+        Optional<Schedule> optionalSchedule = scheduleRepository.findScheduleById(id);
+
+        return new UpdateScheduleResponseDto(optionalSchedule.get());
     }
 }
 

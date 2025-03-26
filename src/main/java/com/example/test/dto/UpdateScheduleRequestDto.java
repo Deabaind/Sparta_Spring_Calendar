@@ -1,6 +1,8 @@
 package com.example.test.dto;
 
 
+import com.example.test.entity.Schedule;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
@@ -14,4 +16,6 @@ public class UpdateScheduleRequestDto {
         this.password = password;
         this.contents = contents;
     }
+
+
 }
